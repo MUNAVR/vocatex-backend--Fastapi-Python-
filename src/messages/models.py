@@ -5,6 +5,7 @@ import uuid
 import sqlalchemy.dialects.postgresql as pg
 from typing import Optional
 from src.auth.models import User, ProviderUser
+from datetime import datetime, timezone
 
 class Message(SQLModel, table=True):
     uid: uuid.UUID = Field(
@@ -16,7 +17,10 @@ class Message(SQLModel, table=True):
         )
     )
     content: str
-    created_at: datetime = Field(default_factory=datetime.now) 
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     sender_id: uuid.UUID = Field(sa_column=Column(pg.UUID, nullable=False))
     receiver_id: uuid.UUID = Field(sa_column=Column(pg.UUID, nullable=False))
+
+
+
 

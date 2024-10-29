@@ -254,11 +254,7 @@ async def login_user(login_data:UserLoginModel,session:AsyncSession = Depends(ge
                     "message":"Login succesfull",
                     "access_token":access_token,
                     "refresh_token":refresh_token,
-                    "user":{
-                        "email":user.email,
-                        "uid":str(user.uid)
-
-                    }
+                    "user_id":str(user.uid)
                 }
             )
     raise HTTPException(

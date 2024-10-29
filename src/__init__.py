@@ -7,19 +7,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.jobs.routes import jobs_router
 from src.job_seeker.routes import resume_router
 from src.Job_applications.routes import apply_router
-import boto3
+
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from botocore.exceptions import NoCredentialsError
 from src.messages.routes import messages_router
-from fastapi_socketio import SocketManager
-from src.socket import initialize_socket_manager
+from src.messages.socket_server import sio, app as socket_app
 
 
 @asynccontextmanager
 async def  life_span(app:FastAPI):
     print(f"server is starting....")
-    global socket_manager
-    socket_manager = initialize_socket_manager(app)
     await init_db()
     yield
     print(f"server has been  stoped")
@@ -46,9 +42,7 @@ app.include_router(resume_router,prefix=f"/api/{version}/resume",tags=['resume']
 app.include_router(apply_router,prefix=f"/api/{version}/apply_jobs",tags=['apply'])
 app.include_router(messages_router,prefix=f"/api/{version}/messages",tags=['message'])
 
-
-
-
+app.mount("/ws", socket_app) 
 
 
 
