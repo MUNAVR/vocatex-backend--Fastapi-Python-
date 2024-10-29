@@ -5,7 +5,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import sessionmaker
 from src.jobs import models
 from src.job_seeker import models
-from src.Job_apply import models
+from src.Job_applications import models
+from src.messages import models
 
 engine = create_async_engine(
     url=Config.DATABASE_URL,

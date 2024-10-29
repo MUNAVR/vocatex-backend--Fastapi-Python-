@@ -34,7 +34,6 @@ class User (SQLModel, table=True):
     applications: List["JobApplication"] = Relationship(back_populates="applicant")
 
 
-
     def __repr__(self):
         return f"<User {self.username}>"
     
