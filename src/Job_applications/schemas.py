@@ -33,6 +33,7 @@ class AppliedJobResponse(BaseModel):
     application_id: UUID
     job_id: UUID
     job_title: str
+    provider_id:UUID
     company_name: str
     status: str
     applied_at: datetime
