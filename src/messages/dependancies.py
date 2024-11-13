@@ -2,13 +2,13 @@ from fastapi import Request, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from src.auth.utils import decode_token
 from fastapi.exceptions import HTTPException
-
+from typing import Optional
 
 class AccessTokenBearer(HTTPBearer):
     def __init__(self, auto_error: bool = True):
         super().__init__(auto_error=auto_error)
 
-    async def __call__(self, request: Request) -> HTTPAuthorizationCredentials | None:
+    async def __call__(self, request: Request) -> Optional[HTTPAuthorizationCredentials]:
        
         cred = await super().__call__(request)
         token = cred.credentials
